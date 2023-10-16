@@ -96,7 +96,7 @@ public class OfferServiceImpl implements IOfferService {
         offerRepository.delete(offer);
 
         try {
-            FileWriter fileWriter = new FileWriter("C:/Code Gurus 2023/International_Mobility_Management_Plateform/offers_archivées.txt", true);
+            FileWriter fileWriter = new FileWriter("C:/Users/Ahmed/Desktop/5ème année/offers_archivées.txt", true);
             fileWriter.write(offer.getIdOffre() + "," + offer.getTitle() + "," +
                     offer.getImage() + "," + offer.getNbreCandidats() + "," +
                     offer.getNbreCandidats() + "," +
