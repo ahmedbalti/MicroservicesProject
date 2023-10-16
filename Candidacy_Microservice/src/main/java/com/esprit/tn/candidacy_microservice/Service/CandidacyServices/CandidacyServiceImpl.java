@@ -102,7 +102,7 @@ public class CandidacyServiceImpl implements ICandidacyService {
         candidacyRepository.delete(candidature);
 
         try {
-            FileWriter fileWriter = new FileWriter("C:/Spring Boot/Candidatures_archivées.txt", true);
+            FileWriter fileWriter = new FileWriter("D:/Candidatures_archivées/Candidatures_archivées.txt", true);
             fileWriter.write(candidature.getIdCandidacy() + "," + candidature.getFirstName() + "," +
                     candidature.getLastName() + "," + candidature.getEmail() + "," +
                     candidature.getTelephoneNumber() + candidature.getPostalCode() + "," + candidature.getDateCandidacy() + "," + candidature.getAddress() + "\n");
