@@ -1,4 +1,4 @@
-package com.example.offerclient;
+package com.example.offerclient2;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,10 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @SpringBootApplication
 @EnableEurekaClient
-public class OfferClientApplication {
+public class OfferClient2Application {
 
-    public static void main(String[] args) {
-        SpringApplication.run(OfferClientApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(OfferClient2Application.class, args);
+	}
 
 }
