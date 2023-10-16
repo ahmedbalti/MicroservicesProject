@@ -20,4 +20,5 @@ public interface IClaimService {
     public List<Claim> getActiveClaims();
 
 
+    void deleteClaim(Long idClaim);
 }

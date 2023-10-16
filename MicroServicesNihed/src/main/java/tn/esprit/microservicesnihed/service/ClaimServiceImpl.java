@@ -85,7 +85,11 @@ public class ClaimServiceImpl implements IClaimService{
     @Override
     public void blockClaim(Long clmId) {
 
+        Claim clm = claimRepository.findById(clmId).orElseThrow(() -> new UpdateClaimException("object not found with id =" + clmId));
+        clm.setStateClm(State.BLOCKED);
+        claimRepository.save(clm);
     }
+
 
     @Override
     public void claimInProgress(Long clmId) {
@@ -95,5 +99,10 @@ public class ClaimServiceImpl implements IClaimService{
     @Override
     public List<Claim> getActiveClaims() {
         return null;
+    }
+
+    @Override
+    public void deleteClaim(Long idClaim) {
+        claimRepository.deleteById(idClaim);
     }
 }
