@@ -1,0 +1,106 @@
+version: "3"
+services:
+  claims:
+    container_name: claims
+    build: 
+     context: .\MicroServicesNihed
+     dockerfile: Dockerfile  
+    ports:
+      - "8084:8084"
+    hostname: claim-s
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://serviceregistry:8761/eureka/
+    image: "monmicroclaim"
+    depends_on:
+      - serviceregistry
+      
+    networks:
+      - eureka-network
+
+
+  
+  candidacy:
+    container_name: candidacies
+    build: 
+     context: .\Candidacy_Microservice
+     dockerfile: Dockerfile  
+    ports:
+      - "8083:8083"
+    restart: unless-stopped 
+    hostname: Candidacy-service
+    environment:
+      - spring.datasource.url=jdbc:mysql://docker-mysql_1:3306/DB_Candidat?createDatabaseIfNotExist=true&userSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://serviceregistry:8761/eureka/
+      
+    image: "candidacyimg1"
+    depends_on:
+      - serviceregistry
+      - docker-mysql_1
+    networks:
+      - eureka-network
+  
+  
+  docker-mysql_1:
+    image: "mysql:5.7.40"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      #- MYSQL_DATABASE=root
+    ports:
+      - 3308:3306
+    restart: unless-stopped 
+    networks:
+      - eureka-network
+     
+
+
+  offer:
+    container_name: offers
+    build: 
+     context: .\OfferClient2
+    
+    ports:
+      - "8082:8082"
+    hostname: OfferClient
+    environment:
+      - spring.datasource.url=jdbc:mysql://docker-mysql_2:3306/DB_Offer?createDatabaseIfNotExist=true&userSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://serviceregistry:8761/eureka/
+   
+    image: "offerimg1"
+    depends_on:
+      - serviceregistry
+      - docker-mysql_2
+    networks:
+      - eureka-network  
+
+
+  docker-mysql_2:
+    image: "mysql:8.0.30"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      #- MYSQL_DATABASE=root
+    ports:
+      - 3306:3306
+    restart: unless-stopped 
+    networks:
+      - eureka-network
+
+     
+     
+
+
+
+  serviceregistry:
+    image: springcloud/eureka
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_APPLICATION_NAME=serviceregistry
+    networks:
+      - eureka-network
+
+networks:
+  eureka-network:
