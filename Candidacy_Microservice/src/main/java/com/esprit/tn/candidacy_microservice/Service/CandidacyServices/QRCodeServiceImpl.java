@@ -43,7 +43,7 @@ public class QRCodeServiceImpl implements IQRCodeService {
 
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-           //ImageIO.write(qrCodeImage, "png", baos);
+            //ImageIO.write(qrCodeImage, "png", baos);
             byte[] qrCodea = baos.toByteArray();
 
             String filePath = "C:/Spring Boot/International_Mobility_Management_Plateform" + UUID.randomUUID().toString() + ".png";
