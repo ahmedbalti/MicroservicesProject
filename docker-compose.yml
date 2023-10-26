@@ -90,8 +90,24 @@ services:
 
      
      
+  gateway: # Define the API Gateway service
+    container_name: gateway
+    build:
+      context: .\ApiGateway # Set the build context to your API Gateway project directory
+      dockerfile: Dockerfile # Specify the Dockerfile if necessary
+    ports:
+      - "8081:8081" # Map the API Gateway's port to the desired host port
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://serviceregistry:8761/eureka/ # Configure as needed for the API Gateway
+      # Add other environment variables specific to your API Gateway configuration
 
+    # Specify any dependencies for the API Gateway (e.g., serviceregistry)
+    image: "apigateway"
+    depends_on:
+      - serviceregistry
 
+    networks:
+      - eureka-network    
 
   serviceregistry:
     image: springcloud/eureka

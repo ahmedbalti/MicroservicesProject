@@ -230,4 +230,8 @@ public class CandidacyServiceImpl implements ICandidacyService {
         return candidacyRepository.save(employee);
     }
 
+    public List<Candidacy> findAllCandidaciesByOffer(Integer offreId) {
+        return candidacyRepository.findAllByOffreId(offreId);
+    }
+
 }

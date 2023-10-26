@@ -2,10 +2,13 @@ package com.example.offerclient2.OfferService;
 
 
 import com.example.offerclient2.OfferRepository.IOfferRepository;
+import com.example.offerclient2.OpenFeign.CandidacyClient;
 import com.example.offerclient2.entity.Offer.Destination;
+import com.example.offerclient2.entity.Offer.FullOfferResponse;
 import com.example.offerclient2.entity.Offer.Offer;
 import com.example.offerclient2.entity.Offer.Profil;
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,7 +32,10 @@ public class OfferServiceImpl implements IOfferService {
     @Autowired
     private IOfferRepository offerRepository;
 
-//    @Autowired
+    @Autowired
+    private  CandidacyClient client;
+
+    //    @Autowired
 //    private UserRepository userRepository;
     @Override
     public List<Offer> getAllOffers() {
@@ -216,6 +222,26 @@ public class OfferServiceImpl implements IOfferService {
     }
     public Offer save(Offer employee) {
         return offerRepository.save(employee);
+    }
+
+    public FullOfferResponse findOffersWithCandidacies(Integer offreId) {
+        var offer = offerRepository.findById(offreId)
+                .orElse(
+                        Offer.builder()
+                                .title("NOT_FOUND")
+                                .image("NOT_FOUND")
+                                .conditions("NOT_FOUND")
+
+                                .build()
+                );
+        var candidacies = client.findAllCandidaciesByOffer(offreId);
+        return FullOfferResponse.builder()
+                .title(offer.getTitle())
+                .image(offer.getImage())
+                .conditions(offer.getConditions())
+
+                .candidacies(candidacies)
+                .build();
     }
 
 }

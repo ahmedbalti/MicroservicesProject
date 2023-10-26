@@ -17,6 +17,7 @@ public interface ICandidacyRepository extends JpaRepository<Candidacy, Integer> 
     List<Candidacy> findByNom(@Param("firstName") String firstName);
 
     List<Candidacy> findByStatusCandidacy(StatusCandidacy statusCandidacy);
+    List<Candidacy> findAllByOffreId(Integer offreId);
 
 
 }

@@ -17,6 +17,8 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
+@Builder
+
 public class Offer implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -330,4 +330,11 @@ public class CandidacyRestController {
         return new ResponseEntity<>(baos.toByteArray(), headers, HttpStatus.OK);
     }
 
+    @GetMapping("/offer/{offre-id}")
+    public ResponseEntity<List<Candidacy>> findAllCandidacies(
+            @PathVariable("offre-id") Integer offreId
+    ) {
+        return ResponseEntity.ok(candidacyServiceImpl.findAllCandidaciesByOffer(offreId));
+    }
+
 }

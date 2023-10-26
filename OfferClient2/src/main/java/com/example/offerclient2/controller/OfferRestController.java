@@ -4,8 +4,10 @@ package com.example.offerclient2.controller;
 
 import com.example.offerclient2.OfferRepository.IOfferRepository;
 import com.example.offerclient2.OfferService.IOfferService;
+import com.example.offerclient2.OfferService.OfferServiceImpl;
 import com.example.offerclient2.OfferService.QRCodeServiceImpl1;
 import com.example.offerclient2.entity.Offer.Destination;
+import com.example.offerclient2.entity.Offer.FullOfferResponse;
 import com.example.offerclient2.entity.Offer.Offer;
 import com.example.offerclient2.exception.UpdateOfferException;
 import com.itextpdf.text.*;
@@ -61,7 +63,8 @@ public class OfferRestController {
     @Autowired
     private IOfferRepository offerRepository;
 
-
+    @Autowired
+    private OfferServiceImpl offerServiceImpl;
 
 
     //    http://localhost:8080/espritmobility/api/offers/getOffers
@@ -303,6 +306,13 @@ public class OfferRestController {
 //    public ModelAndView videochat2() {
 //        return new ModelAndView("videochat2");
 //    }
+
+    @GetMapping("/with-candidacies/{offre-id}")
+    public ResponseEntity<FullOfferResponse> findAllOffers(
+            @PathVariable("offre-id") Integer offreId
+    ) {
+        return ResponseEntity.ok(offerServiceImpl.findOffersWithCandidacies(offreId));
+    }
 //
 
 }

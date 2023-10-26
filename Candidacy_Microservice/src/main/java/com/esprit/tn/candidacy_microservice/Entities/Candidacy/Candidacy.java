@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @ToString
+@Builder
 
 public class Candidacy implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -56,6 +57,8 @@ public class Candidacy implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private Disponibilite disponibilite;
+
+    private Integer offreId;
 
 
     public Candidacy(Integer id, String nom_de_candidature, boolean b) {
